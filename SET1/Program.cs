@@ -174,6 +174,9 @@ namespace SET1
 
             Console.Write("Introduceti un numar de la 1 la 21 sau 'exit' pentru a iesi din aplicatie: ");
         }
+        /// <summary>
+        /// Ghiceste numarul tau intre 1 si 1024 prin intrebari
+        /// </summary>
         private static void P21()
         {
             Console.WriteLine("ex 21: Ghiciti un numar intre 1 si 1024 prin intrebari de forma 'numarul este mai mare sau egal decat x?'.\n ");
@@ -189,33 +192,74 @@ namespace SET1
                 {
                     count = 9; // daca count > 9 se pierde precizia de cautare, pentru count = 9 fiecare intrebare creste sau decreste cu 1 minim
                 }
-                if (aux == 1023) // intrebarea finala care decide daca numarul este 1023 sau 1024
+                if (aux == 1023) // intrebarea finala care decide daca numarul este 1022, 1023 sau 1024, altfel se pierde posibilitatea de a ajunge la 1024
                 {
-                    Console.WriteLine($"Numarul tau este {aux} ?");
-                    string raspuns1024 = Console.ReadLine();
-                    switch (raspuns1024.ToLower())
+                    Console.WriteLine($"Numarul tau este mai mare sau egal decat {aux} ?");
+                    string raspuns1022 = Console.ReadLine();
+                    switch (raspuns1022.ToLower())
                     {
 
                         case "da":
                             {
-                                Console.WriteLine($"\nNumarul tau este 1023");
+                                Console.WriteLine($"Numarul tau este {aux + 1} ?");
+                                string raspuns1024 = Console.ReadLine();
+                                switch (raspuns1024.ToLower()) 
+                                {
+                                    case "da":
+                                        Console.WriteLine($"\nNumarul tau este 1024");
+                                        return;
+                                    case "nu":
+                                        Console.WriteLine($"\nNumarul tau este 1023");
+                                        return;
+                                    default:
+                                        Console.WriteLine("Trebuie sa raspunzi cu 'da' sau 'nu' !");
+                                        break;
+                                }
+                                return;
+                            }
+                        case "mai mare":
+                            {
+                                Console.WriteLine($"Numarul tau este mai mare sau egal decat {aux + 1} ?");
+                                string raspuns1024 = Console.ReadLine();
+                                switch (raspuns1024.ToLower())
+                                {
+                                    case "da":
+                                        Console.WriteLine($"\nNumarul tau este 1024");
+                                        return;
+                                    case "nu":
+                                        Console.WriteLine($"\nNumarul tau este 1023");
+                                        return;
+                                    default:
+                                        Console.WriteLine("trebuie sa raspunzi cu 'da' sau 'nu'.");
+                                        break;
+                                }
                                 return;
                             }
                         case "nu":
                             {
-                                Console.WriteLine($"\nNumarul tau este 1024");
+                                Console.WriteLine($"\nNumarul tau este 1022");
+                                return;
+                            }
+                        case "mai mic":
+                            {
+                                Console.WriteLine($"\nNumarul tau este 1022");
+                                return;
+                            }
+                        case "egal":
+                            {
+                                Console.WriteLine($"\nNumarul tau este 1023");
                                 return;
                             }
                         default:
                             {
-                                Console.WriteLine("trebuie sa raspunzi cu 'da' sau 'nu'.");
+                                Console.WriteLine("Trebuie sa raspunzi cu 'mai mare' sau cu 'da' , 'mai mic' sau cu 'nu', sau 'egal' !");
                                 break;
                             }
                     }
                 }                            
                 else // algoritmul de intrebare care cauta numarul cu precizie crescatoare dupa fiecare raspuns
                 {
-                    Console.WriteLine($"Numarul tau este mai mare sau egal cu {aux} ?");
+                    Console.WriteLine($"Numarul tau este mai mare sau egal decat {aux} ?");
                     raspuns = Console.ReadLine();
                     switch (raspuns.ToLower())
                     {
@@ -279,7 +323,7 @@ namespace SET1
                             }
                         default:
                             {
-                                Console.WriteLine("trebuie sa raspunzi cu 'mai mare' sau 'da' , 'mai mic' sau cu 'nu', sau 'egal'.");
+                                Console.WriteLine("Trebuie sa raspunzi cu 'mai mare' sau 'da' , 'mai mic' sau cu 'nu', sau 'egal' !");
                                 break;
                             }
                     }
@@ -290,6 +334,9 @@ namespace SET1
                 Console.WriteLine($"Numarul tau este 1");
             }
         }
+        /// <summary>
+        /// Afisare fractie de tip m/n in format zecimal cu perioade in paranteza. ( functioneaza pentru perioade pana la 15 cifre lungi )
+        /// </summary>
         private static void P20()
         {
             int m, n;
@@ -480,6 +527,9 @@ namespace SET1
             }
             else Console.Write($"{perioada2})");
         }
+        /// <summary>
+        /// Test pt numar daca are exact 2 cifre care se pot repeta
+        /// </summary>
         private static void P19()
         {
             Console.WriteLine("ex 19: Determinati daca un numar e format doar cu 2 cifre care se pot repeta. \n");
@@ -528,6 +578,9 @@ namespace SET1
             }
             else Console.WriteLine("Da , numarul introdus este format din doar 2 cifre care se pot repeta.");
         }
+        /// <summary>
+        /// Descompunere in factori primi ( functioneaza pt orice numar pana la int32.maxvalue )
+        /// </summary>
         private static void P18()
         {
             int n;
@@ -587,6 +640,9 @@ namespace SET1
             }
             Console.WriteLine();
         }
+        /// <summary>
+        /// CMMDC & CMMMC
+        /// </summary>
         private static void P17()
         {
             Console.WriteLine("ex 17: Determianti cel mai mare divizor comun si cel mai mic multiplu comun a doua numere. Folositi algoritmul lui Euclid.\n");
@@ -630,6 +686,9 @@ namespace SET1
             Console.WriteLine($"\nCMMDC ({a};{b}) = {cmmdc}");
             Console.WriteLine($"CMMMC ({a};{b}) = {cmmmc}");
         }
+        /// <summary>
+        /// 5 nr in ordine crescatoare ( fara tablou )
+        /// </summary>
         private static void P16()
         {
             Console.WriteLine("ex 16: Se dau 5 numere. Sa se afiseze in ordine crescatoare. ( Fara tablouri )");
@@ -796,6 +855,9 @@ namespace SET1
             Console.WriteLine();
             Console.WriteLine($"Numerele in ordine crescatoare sunt: {min} , {min2} , {med} , {max2} , {max}");
         }
+        /// <summary>
+        /// 3 nr in ordine crescatoare
+        /// </summary>
         private static void P15()
         {
             Console.WriteLine("ex 15: Se dau 3 numere. Sa se afiseze in ordine crescatoare.");
@@ -841,6 +903,9 @@ namespace SET1
                 Console.Write(arr[i]+" ");
             }
         }
+        /// <summary>
+        /// test palindrom
+        /// </summary>
         private static void P14()
         {
             Console.WriteLine("ex 14: Determianti daca un numar n este palindrom.");
@@ -867,6 +932,9 @@ namespace SET1
             else Console.WriteLine($"Numarul {n} nu este palindrom");
 
         }
+        /// <summary>
+        /// Nr de ani bisecti dintr-un interval
+        /// </summary>
         private static void P13()
         {
             Console.WriteLine("ex 13: Determianti cati ani bisecti sunt intre anii 'y1 si y2'.");
@@ -927,6 +995,10 @@ namespace SET1
                 Console.WriteLine($"In intervalul de ani [{an},{an2}] sunt {count} ani bisecti");
             }
         }
+        /// <summary>
+        /// Returnare fortata ai unui numar diferit de 0
+        /// </summary>
+        /// <returns></returns>
         private static long P12_1()
         {
             long n;
@@ -947,6 +1019,9 @@ namespace SET1
             }
             return n;
         }
+        /// <summary>
+        /// Test divizie cu un numar dintr-un interval
+        /// </summary>
         private static void P12()
         {
             Console.WriteLine("ex 12: Determinati cate numere integi divizibile cu n se afla in intervalul [a, b].");
@@ -1013,6 +1088,9 @@ namespace SET1
                 Console.WriteLine($" In intervalul [{a},{b}] sunt {count} numere divizibile cu {n}");
             }
         }
+        /// <summary>
+        /// Inversarea ordinii cifrelor
+        /// </summary>
         private static void P11()
         {
             long n;
@@ -1036,6 +1114,9 @@ namespace SET1
             }
             Console.WriteLine($"Cifrele in ordine inversa a numarului {n} sunt: {inv}"); // habar nu am daca ar trebui cu semn sau nu
         }
+        /// <summary>
+        /// Test de primalitate
+        /// </summary>
         private static void P10()
         {
             Console.WriteLine("ex 10: Test de primalitate: determinati daca un numar 'n' este prim.");
@@ -1056,6 +1137,7 @@ namespace SET1
             {
                 Console.WriteLine();
                 Console.WriteLine($"Numarul {n} nu este prim");
+                return;
             }
             for (int i = 3; i <= ((div + 1) / 2); i++)
             {
@@ -1072,6 +1154,9 @@ namespace SET1
                 Console.WriteLine($"Numarul {n} nu este prim");
             }
         }
+        /// <summary>
+        /// Afisare toti divizori
+        /// </summary>
         private static void P9()
         {
             Console.WriteLine("ex 9: Afisati toti divizorii numarului 'n'");
@@ -1097,6 +1182,9 @@ namespace SET1
                 }
             }
         }
+        /// <summary>
+        /// Swap de variabile fara variabila extra
+        /// </summary>
         private static void P8()
         {
             float a, b;
@@ -1130,6 +1218,9 @@ namespace SET1
             Console.WriteLine($"a = {a}");
             Console.WriteLine($"b = {b}");
         }
+        /// <summary>
+        /// Swap de variabile simpla
+        /// </summary>
         private static void P7()
         {
             float a, b, x;          
@@ -1162,6 +1253,10 @@ namespace SET1
             Console.WriteLine($"a = {a}");
             Console.WriteLine($"b = {b}");
         }
+        /// <summary>
+        /// Returnare fortata a unui nr pozitiv
+        /// </summary>
+        /// <returns></returns>
         private static float P6_3()
         {
             float c;
@@ -1183,6 +1278,10 @@ namespace SET1
             }
             return c;
         }
+        /// <summary>
+        /// Returnare fortata a unui nr pozitiv
+        /// </summary>
+        /// <returns></returns>
         private static float P6_2()
         {
             float b;
@@ -1204,6 +1303,10 @@ namespace SET1
             }
             return b;
         }
+        /// <summary>
+        /// Returnare fortata a unui nr pozitiv
+        /// </summary>
+        /// <returns></returns>
         private static float P6_1()
         {
             float a;
@@ -1288,6 +1391,9 @@ namespace SET1
                 Console.WriteLine($"Numerele {a} , {b} , {c} nu pot forma un triunghi");
             }
         }
+        /// <summary>
+        /// Test de triunghi
+        /// </summary>
         private static void P5()
         {
             int numar;
@@ -1338,6 +1444,9 @@ namespace SET1
                 Console.WriteLine($"A {k}-a cifra luata din sfarsitul numarului {numar} nu exista, k fiind mai mare decat lungimea numerelor de cifre ai numarului.");
             }
         }
+        /// <summary>
+        /// Test de an bisect
+        /// </summary>
         private static void P4()
         {
             Console.WriteLine("ex 4: Detreminati daca un an 'y' este an bisect.");
@@ -1369,6 +1478,9 @@ namespace SET1
             }
 
         }
+        /// <summary>
+        /// Test de divizie 2 numere
+        /// </summary>
         private static void P3()
         {
             float n, k;
@@ -1408,6 +1520,9 @@ namespace SET1
                 }
             }
         }
+        /// <summary>
+        /// Ecuatia de GR2
+        /// </summary>
         private static void P2()
         {
             float a, b, x, c, d, delta, CDelta, x1, x2;
@@ -1498,6 +1613,9 @@ namespace SET1
             }
 
         }
+        /// <summary>
+        /// Ecuatia de GR1
+        /// </summary>
         private static void P1()
         {
             float a, b, x;
