@@ -373,12 +373,17 @@ namespace SET1
             }
             int semnm = m / Math.Abs(m) ;
             int semnn = n / Math.Abs(n) ;
-            int norg = n;
+            int norg = Math.Abs(n);
+            int morg = Math.Abs(m);
             int mlength = aAsString.Length;
             int nlength = bAsString.Length;
             if (semnm < 0) // necesar pentru ca - in fata la m strica precizia algoritmului de detectare a 0-urilor dupa punctul zecimal.
             {
                 mlength = aAsString.Length - 1;
+            }
+            if (semnn < 0)
+            {
+                nlength = bAsString.Length - 1;
             }
             m = Math.Abs(m); // m si n iau valori absolute pentru a nu avea probleme cu semn
             n = Math.Abs(n);
@@ -401,7 +406,14 @@ namespace SET1
                 auxb = r;
             }
             cmmdc = auxa;
-            Console.WriteLine($"\nFractia introdusa de forma m/n se poate scrie in forma zecimala astfel: ");
+            if (semnm * semnn < 0)
+            {
+                Console.WriteLine($"\nFractia introdusa de forma -{m}/{n} se poate scrie in forma zecimala astfel: ");
+            }
+            else
+            {
+                Console.WriteLine($"\nFractia introdusa de forma {m}/{n} se poate scrie in forma zecimala astfel: ");
+            }
             m = m / cmmdc;
             n = n / cmmdc;
 
@@ -451,19 +463,6 @@ namespace SET1
                 Console.Write($"{pintreaga}.");
                 Console.Write("(");
                 double prest = m - pintreaga * n;
-                if ( n > m ) // algoritmul scrie 0-uri dupa punctul zecimal inainte de a calcula perioada
-                {                
-                    string nauxstring;
-                    int naux = n;
-                    while ((int)( naux / m ) >= 10)
-                    {
-                        Console.Write("0");
-                        naux = naux / 10;
-                        nauxstring = Convert.ToString(naux);
-                        ///Console.WriteLine(nauxstring);
-                        if (nauxstring.Length == mlength) break;
-                    }                   
-                }
                 int periodlength = 1;
                 for (int j = 1; j < 15; j++) // aici se gaseste cat de lung este perioada factiei, pentru o perioada care are o lungime de peste 15 cifre, se pun ... dupa a 15-a cifra pentru a nu intra in probeleme de stocare a valorii
                 {
@@ -475,6 +474,13 @@ namespace SET1
                     else periodlength = 15;
                 }
                 double perioada = (double)Math.Floor(((double)Math.Pow(10, periodlength) * prest) / n); // algoritmul care gaseste perioada din fractie si o stocheaza
+                string period1length = Convert.ToString(perioada);
+                int periodlengthint = period1length.Length; // aici se pun 0-uri daca perioada incepe cu 0
+                while (periodlengthint < periodlength)
+                {
+                    Console.Write("0");
+                    periodlengthint++;
+                }
                 if (periodlength == 15)
                 {
                     Console.Write($"{perioada}...) (perioada este de peste 15 cifre lunga)");
