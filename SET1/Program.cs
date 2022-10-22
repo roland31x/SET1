@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 
@@ -215,11 +217,11 @@ namespace SET1
                                         Console.WriteLine("Trebuie sa raspunzi cu 'da' sau 'nu' !");
                                         break;
                                 }
-                                return;
+                                break;
                             }
                         case "mai mare":
                             {
-                                Console.WriteLine($"Numarul tau este mai mare sau egal decat {aux + 1} ?");
+                                Console.WriteLine($"Numarul tau este {aux + 1} ?");
                                 string raspuns1024 = Console.ReadLine();
                                 switch (raspuns1024.ToLower())
                                 {
@@ -233,7 +235,7 @@ namespace SET1
                                         Console.WriteLine("trebuie sa raspunzi cu 'da' sau 'nu'.");
                                         break;
                                 }
-                                return;
+                                break;
                             }
                         case "nu":
                             {
@@ -371,7 +373,9 @@ namespace SET1
             }
             int semnm = m / Math.Abs(m) ;
             int semnn = n / Math.Abs(n) ;
+            int norg = n;
             int mlength = aAsString.Length;
+            int nlength = bAsString.Length;
             if (semnm < 0) // necesar pentru ca - in fata la m strica precizia algoritmului de detectare a 0-urilor dupa punctul zecimal.
             {
                 mlength = aAsString.Length - 1;
@@ -447,15 +451,18 @@ namespace SET1
                 Console.Write($"{pintreaga}.");
                 Console.Write("(");
                 double prest = m - pintreaga * n;
-                if ( n > m) // algoritmul scrie 0-uri dupa punctul zecimal inainte de a calcula perioada
-                {
-                    double naux = n;
-                    while (naux > (Math.Pow(10, (mlength)) * m))
-
+                if ( n > m ) // algoritmul scrie 0-uri dupa punctul zecimal inainte de a calcula perioada
+                {                
+                    string nauxstring;
+                    int naux = n;
+                    while ((int)( naux / m ) >= 10)
                     {
-                        naux = naux / 10;
                         Console.Write("0");
-                    }
+                        naux = naux / 10;
+                        nauxstring = Convert.ToString(naux);
+                        ///Console.WriteLine(nauxstring);
+                        if (nauxstring.Length == mlength) break;
+                    }                   
                 }
                 int periodlength = 1;
                 for (int j = 1; j < 15; j++) // aici se gaseste cat de lung este perioada factiei, pentru o perioada care are o lungime de peste 15 cifre, se pun ... dupa a 15-a cifra pentru a nu intra in probeleme de stocare a valorii
@@ -475,7 +482,7 @@ namespace SET1
                 else Console.Write($"{perioada})");
                 return; 
             }
-            // part 3 : perioada mixta 
+       //     // part 3 : perioada mixta 
             aux = (int)Math.Abs(n);
             int[] pwr = new int[2];
             for (int i = 0; i < 2; i++) // algoritmul stocheaza de cate ori se imparte numitorul cu 2 sau 5 , si le stocheaza intr-un tablou, acest numar este important pentru a gasi lungimea partii neperiodice
@@ -494,23 +501,24 @@ namespace SET1
             }
             // determinarea lungimii numerelor neperiodice
             Console.Write($"{pintreaga}.");
-            if (n > m) // algoritmul scrie 0-uri dupa punctul zecimal inainte de a calcula perioada
-            {
-                double naux = n;
-                while (naux > Math.Pow(10, mlength) * m )
-                {
-                    naux = naux / 10;
-                    Console.Write("0");
-                }
-            }
+            
             int neperiodic = pwr.Max(); // lungimea partii neperiodice din numarul cu perioada mixta
             double prestintreg = m - n * pintreaga; // din acesta se va calcula partea neperiodica
             double prestneperiodic = prestintreg*Math.Pow(10, neperiodic); 
             double neperiodiccifra = Math.Floor(prestneperiodic / n); // cifrele neperiodice din numar
+            int neperiodiclength = Convert.ToString(neperiodiccifra).Length;
+            if (n > m && pwr.Max() > 1) // algoritmul scrie 0-uri dupa punctul zecimal inainte de a calcula perioada
+            {
+                while (neperiodiclength < pwr.Max())
+                {
+                    Console.Write("0");
+                    neperiodiclength++;
+                }
+            }
             Console.Write(neperiodiccifra);
             Console.Write("(");
             int periodlength2 = 1;
-            for (int j = 1; j < 15; j++) // algoritm de a gasi lungimea perioadei
+            for (int j = 1; j < 15; j++) // algoritm de a gasi lungimea perioadei ( in cazul in care perioada este de peste 15 cifre s-ar putea ca algoritmul sa rateze cifra 0 daca perioada incepe cu cifra 0 )
             {
                 if ((Math.Pow(10, j) - 1) % aux == 0)
                 {
@@ -520,13 +528,21 @@ namespace SET1
                 else periodlength2 = 15; // daca perioada este mai lunga decat 15 cifre, calculam primele 15 cifre ale perioadei
             }
             double prest2 = prestintreg - (Math.Pow(10, -neperiodic) * neperiodiccifra * n);  // restul care urmeaza sa fie impartit cu n pentru a gasi perioada
-            double perioada2 = (double)Math.Floor(((double)Math.Pow(10, periodlength2) * prest2 * Math.Pow(10, neperiodic)) / n);
+            double perioada2 = (double)Math.Floor((double)Math.Pow(10, periodlength2) * prest2 * Math.Pow(10, neperiodic) / n);
+            string period2length = Convert.ToString(perioada2);
+            int period2lengthint = period2length.Length; // aici se pun 0-uri daca perioada incepe cu 0
+            while (period2lengthint < periodlength2) 
+            {
+                Console.Write("0");
+                period2lengthint++;
+            }
             if (periodlength2 == 15)
             {
                 Console.Write($"{perioada2}...) (perioada este de peste 15 cifre lunga)");
             }
             else Console.Write($"{perioada2})");
-        }
+        } 
+        // honestly n-am nici o ideie cum am reusit sa fac sa functioneze dar functioneaza i guess 
         /// <summary>
         /// Test pt numar daca are exact 2 cifre care se pot repeta
         /// </summary>
