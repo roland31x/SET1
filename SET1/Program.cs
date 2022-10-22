@@ -24,7 +24,7 @@ namespace SET1
 
         private static void SET1()
         {
-            Console.WriteLine("SET 1 de exercitii in ConsoleApp - Fundamentele programarii 2022");
+            Console.WriteLine("SET1 de exercitii in ConsoleApp - Fundamentele programarii 2022 - pali roland\n");
             Console.WriteLine("Apasa orice buton pentru a continua spre meniul de alegere al exercitiilor");
             Console.ReadKey();
             while (true)
@@ -375,16 +375,6 @@ namespace SET1
             int semnn = n / Math.Abs(n) ;
             int norg = Math.Abs(n);
             int morg = Math.Abs(m);
-            int mlength = aAsString.Length;
-            int nlength = bAsString.Length;
-            if (semnm < 0) // necesar pentru ca - in fata la m strica precizia algoritmului de detectare a 0-urilor dupa punctul zecimal.
-            {
-                mlength = aAsString.Length - 1;
-            }
-            if (semnn < 0)
-            {
-                nlength = bAsString.Length - 1;
-            }
             m = Math.Abs(m); // m si n iau valori absolute pentru a nu avea probleme cu semn
             n = Math.Abs(n);
             int auxa, auxb, cmmdc; // se simplifica fractia sa fie irreducibila
@@ -408,14 +398,14 @@ namespace SET1
             cmmdc = auxa;
             if (semnm * semnn < 0)
             {
-                Console.WriteLine($"\nFractia introdusa de forma -{m}/{n} se poate scrie in forma zecimala astfel: ");
+                Console.WriteLine($"\nFractia introdusa de forma -{morg}/{norg} se poate scrie in forma zecimala astfel: ");
             }
             else
             {
-                Console.WriteLine($"\nFractia introdusa de forma {m}/{n} se poate scrie in forma zecimala astfel: ");
+                Console.WriteLine($"\nFractia introdusa de forma {morg}/{norg} se poate scrie in forma zecimala astfel: ");
             }
-            m = m / cmmdc;
-            n = n / cmmdc;
+            m /= cmmdc;
+            n /= cmmdc;
 
             int pintreaga; 
             pintreaga = (int)(m / n);
@@ -426,7 +416,7 @@ namespace SET1
             {
                 while (aux % simplecheck[i] == 0)
                 {
-                    aux = aux / simplecheck[i];
+                    aux /= simplecheck[i];
                 }
             //    Console.WriteLine(aux);
             }
@@ -436,7 +426,7 @@ namespace SET1
                 {
                     Console.Write("-");
                 }
-                Console.Write($"{(float)((float)m / (float)n)}");
+                Console.Write($"{(float)((float)m / (float)n)}\n");
                 return;
             }
             // part 2 : verificam cazul de fractie periodica simpla
@@ -446,7 +436,7 @@ namespace SET1
             {
                 while (aux % simplecheck[i] == 0)
                 {
-                    aux = aux / simplecheck[i];
+                    aux /= simplecheck[i];
                     count++;
                 }
                 // Console.WriteLine(aux);
@@ -483,9 +473,9 @@ namespace SET1
                 }
                 if (periodlength == 15)
                 {
-                    Console.Write($"{perioada}...) (perioada este de peste 15 cifre lunga)");
+                    Console.Write($"{perioada}...) (perioada este de peste 15 cifre lunga)\n");
                 }
-                else Console.Write($"{perioada})");
+                else Console.Write($"{perioada})\n");
                 return; 
             }
        //     // part 3 : perioada mixta 
@@ -496,7 +486,7 @@ namespace SET1
                 int count2 = 0;
                 while (aux % simplecheck[i] == 0)
                 {
-                    aux = aux / simplecheck[i];
+                    aux /= simplecheck[i];
                     count2++;
                     pwr[i] = count2;
                 }
@@ -544,11 +534,11 @@ namespace SET1
             }
             if (periodlength2 == 15)
             {
-                Console.Write($"{perioada2}...) (perioada este de peste 15 cifre lunga)");
+                Console.Write($"{perioada2}...) (perioada este de peste 15 cifre lunga)\n");
             }
-            else Console.Write($"{perioada2})");
+            else Console.Write($"{perioada2})\n");
         } 
-        // honestly n-am nici o ideie cum am reusit sa fac sa functioneze dar functioneaza i guess 
+        // To-do p20 , sa afiseze perioada mai lunga de 15 cifre 
         /// <summary>
         /// Test pt numar daca are exact 2 cifre care se pot repeta
         /// </summary>
@@ -585,7 +575,7 @@ namespace SET1
                     }                   
                 //    Console.WriteLine(nrcifre[i]); // pt inregistrarea existentei cifrei in nr introdus
                 }
-                aux = aux / 10;
+                aux /= 10;
 
             }
             int countcifre = 0;
@@ -632,7 +622,7 @@ namespace SET1
                 int count2 = 0;
                 while (aux % primes[i] == 0)
                 {
-                    aux = aux / primes[i];
+                    aux /= primes[i];
                     count2++;
                     pwr[i] = count2;
                 }
@@ -947,7 +937,7 @@ namespace SET1
             while (nr != 0)
             {
                 inv = inv * 10 + nr % 10;
-                nr = nr / 10;
+                nr /= 10;
             }
             if (n == inv)
                 Console.WriteLine($"Numarul {n} este palindrom");
@@ -984,7 +974,7 @@ namespace SET1
             }
             if (an > an2)
             {
-                int x = 0;
+                int x;
                 x = an;
                 an = an2;
                 an2 = x;
@@ -1070,7 +1060,7 @@ namespace SET1
             }
             if (a > b)
             {
-                long x = 0;
+                long x;
                 x = a;
                 a = b;
                 b = x;
@@ -1127,14 +1117,21 @@ namespace SET1
                 Console.Write("n = ");
                 aAsString = Console.ReadLine();
             }
+            Console.Write($"\nCifrele in ordine inversa a numarului {n} sunt: ");
             long nr = Math.Abs(n); // inversez cifrele fara semn
             long inv = 0;
+            long nr0 = Math.Abs(n);
+            while (nr0 % 10 == 0) // pentru a scrie 0-urile daca numarul se termina in unul sau mai multe 0-uri
+            {
+                nr0 /= 10;
+                Console.Write("0");
+            }
             while (nr != 0)
             {
                 inv = inv * 10 + nr % 10;
-                nr = nr / 10;
+                nr /= 10;
             }
-            Console.WriteLine($"Cifrele in ordine inversa a numarului {n} sunt: {inv}"); // habar nu am daca ar trebui cu semn sau nu
+            Console.Write($"{inv}"); // habar nu am daca ar trebui cu semn sau nu
         }
         /// <summary>
         /// Test de primalitate
@@ -1231,9 +1228,9 @@ namespace SET1
                 Console.Write("b = ");
                 bAsString = Console.ReadLine();
             }
-            a = a + b;
+            a += b;
             b = a - b;
-            a = a - b;
+            a -= b;
 
             Console.WriteLine();
             Console.WriteLine("Variabilele inversate cu succes!");
@@ -1350,6 +1347,9 @@ namespace SET1
             }
             return a;
         }
+        /// <summary>
+        /// Test de triunghi
+        /// </summary>
         private static void P6()
         {
             Console.WriteLine("ex 6: Detreminati daca trei numere pozitive a, b si c pot fi lungimile laturilor unui triunghi. ");
@@ -1414,17 +1414,17 @@ namespace SET1
             }
         }
         /// <summary>
-        /// Test de triunghi
+        /// A 'k'-a cifra dintr-un numar, citit de la dreapta la stanga
         /// </summary>
         private static void P5()
         {
-            int numar;
-            int cifra = 0;
+            long numar;
+            long cifra = 0;
             Console.WriteLine("ex 5: Extrageti si afisati a 'k' - a cifra de la sfarsitul unui numar. Cifrele se numara de la dreapta la stanga.");
             Console.WriteLine();
             Console.Write("numar = ");
             var aAsString = Console.ReadLine();
-            while (!int.TryParse(aAsString, out numar))
+            while (!long.TryParse(aAsString, out numar))
             {
                 Console.WriteLine("Trebuie sa introduci un numar intreg! Incearca din nou!");
                 Console.WriteLine();
@@ -1442,12 +1442,12 @@ namespace SET1
                 Console.Write("k = ");
                 kAsString = Console.ReadLine();
             }
-            int aux = (int)Math.Abs(numar);
-            int aux2 = aux;
+            long aux = (long)Math.Abs(numar);
+            long aux2 = aux;
             int count = 1;
             while (aux2 > 1)
             {
-                aux2 = aux2 / 10;
+                aux2 /= 10;
                 count++;
             }
             if (k <= count)
@@ -1455,7 +1455,7 @@ namespace SET1
                 for (int i = 1; i <= k; i++)
                 {
                     cifra = aux % 10;
-                    aux = aux / 10;
+                    aux /= 10;
                 }
                 Console.WriteLine();
                 Console.WriteLine($"A {k}-a cifra luata din sfarsitul numarului {numar} este {cifra}");
@@ -1615,7 +1615,7 @@ namespace SET1
                 {
                     if (d == 0)
                     {
-                        x = x1 = x2 = -b / (2 * a);
+                        x = -b / (2 * a);
                         Console.WriteLine("Solutia ecuatiei este: ");
                         Console.WriteLine($"x1 = x2 = {x}");
                     }
@@ -1628,7 +1628,7 @@ namespace SET1
                     x2 = -b / (2 * a);
                     x2C = -CDelta / (2 * a);
 
-                    Console.WriteLine($"Ecuatia are radacine complexe:");
+                    Console.WriteLine($"Ecuatia are radacini complexe:");
                     Console.WriteLine($"x1 = {x1} + {x1C}i ");
                     Console.WriteLine($"x2 = {x2} + {x2C}i ");
                 }
