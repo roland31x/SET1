@@ -759,49 +759,29 @@ namespace SET1
             if (a < b)
             {
                 min = a;
-                med = b;
-                if (c < min)
-                {
-                    min = c;
-                    med = a;
-                    max = b;
-                }
+                max = b;
+            }
+            if (b < a)
+            {
+                min = b;
+                max = a;
+            }
+            a = min;
+            b = max;
 
-                else if (c > min)
-                {
-                    if (c > med)
-                    {
-                        max = c;
-                    }
-                    else
-                    {
-                        med = c;
-                        max = b;
-                    }
-                }
+            if (c < a) // aici a < b 
+            {
+                min = c;
+                med = a;
+            }
+            else if (c > b)
+            {
+                max = c;
+                med = b;
             }
             else
             {
-                min = b;
-                med = a;
-                if (c < min)
-                {
-                    min = c;
-                    med = b;
-                    max = a;
-                }
-                else if (c > min)
-                {
-                    if (c > med)
-                    {
-                        max = c;
-                    }
-                    else
-                    {
-                        med = c;
-                        max = a;
-                    }
-                }
+                med = c;
             }
             a = min;
             b = med;
@@ -857,7 +837,7 @@ namespace SET1
                 else
                     min2 = e;
             }
-            //// 100 de linii de if / else if 
+            //// 
             //a = min;
             //b = min2;
             //c = med;
@@ -1151,27 +1131,28 @@ namespace SET1
                 nAsString = Console.ReadLine();
             }
             int div = (int)Math.Abs(n);
-            int count = 0;
+            if (div < 2)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Numarul {n} nu este prim");
+                return;
+            }
             if (div % 2 == 0 && div != 2)
             {
                 Console.WriteLine();
                 Console.WriteLine($"Numarul {n} nu este prim");
                 return;
             }
-            for (int i = 3; i <= ((div + 1) / 2); i++)
+            for (int i = 3; i <= Math.Sqrt(div); i++)
             {
-                if (div % i == 0) count++;
+                if (div % i == 0)
+                {
+                    Console.WriteLine($"Numarul {n} nu este prim");
+                    return;
+                }               
             }
-            if (count == 0)
-            {
                 Console.WriteLine();
                 Console.WriteLine($"Numarul {n} este prim");
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Numarul {n} nu este prim");
-            }
         }
         /// <summary>
         /// Afisare toti divizori
