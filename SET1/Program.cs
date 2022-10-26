@@ -883,14 +883,11 @@ namespace SET1
                 cAsString = Console.ReadLine();
                 Console.WriteLine();
             }
-            float[] arr = new float[3];
-            arr[0] = a;
-            arr[1] = b;
-            arr[2] = c;
+            float[] arr = new float[] {a,b,c};
             Array.Sort(arr);
             Console.WriteLine();
             Console.WriteLine("Valorile introduse in ordine crescatoare sunt:");
-            for (int i = 0; i < 3; i++) 
+            for (int i = 0; i < arr.Length; i++) 
             {
                 Console.Write(arr[i]+" ");
             }
