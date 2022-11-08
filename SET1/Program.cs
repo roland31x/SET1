@@ -561,17 +561,18 @@ namespace SET1
                 Console.WriteLine($"\nNu, in acest caz  numarul este alcatuit dintr-o singura cifra");
                 return;
             }
-            int[] cifre = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            //int[] cifre = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             int[] nrcifre = new int[10];
             for (int j = 0; j < aAsString.Length; j++)
             {
                 int count = 0;
-                for (int i = 0; i < cifre.Length; i++)
+                for (int i = 0; i < nrcifre.Length; i++)
                 {
                     if (aux % 10 == i)
                     {
                         count++;
                         nrcifre[i] = count;
+                        break;
                     }                   
                 //    Console.WriteLine(nrcifre[i]); // pt inregistrarea existentei cifrei in nr introdus
                 }
@@ -579,7 +580,7 @@ namespace SET1
 
             }
             int countcifre = 0;
-            for (int k = 0; k < cifre.Length; k++)
+            for (int k = 0; k < nrcifre.Length; k++)
             {
                 if (nrcifre[k] > 0) countcifre++;
 
