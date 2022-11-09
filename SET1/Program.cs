@@ -655,7 +655,7 @@ namespace SET1
         /// </summary>
         private static void P18()
         {
-            int n;
+            /* int n;
             List<int> primeslist = new List<int>();
             int prime = 3;
             primeslist.Add(2);
@@ -736,7 +736,58 @@ namespace SET1
             {   
             Console.Write($"x {aux}^1");
             }
+            Console.WriteLine(); */
+            int n;
+            Console.WriteLine("ex 18: Afisati descompunerea in factori primi ai unui numar 'n'.\n");
+            Console.Write("n = ");
+            var aAsString = Console.ReadLine();
+            while (!int.TryParse(aAsString, out n))
+            {
+                Console.WriteLine("Trebuie sa introduci un numar intreg! Incearca din nou!");
+                Console.WriteLine();
+                Console.Write("n = ");
+                aAsString = Console.ReadLine();
+            }
             Console.WriteLine();
+            if (Math.Abs(n) <= 1)
+            {
+                Console.WriteLine("Nu are factori primi!");
+                return;
+            }
+            bool semn = false;
+            if (n < 0)
+            {
+                semn = true;
+                n = Math.Abs(n);
+            }
+            if (semn)
+            {
+                Console.Write("-1 x");
+            }
+            bool start = true;
+            for (int i = 2; i <= n; i++)
+            {
+                if (n % i == 0 && n > 0)
+                {
+                    int count = 1;
+                    if (start) 
+                    { 
+                        Console.Write(" " + i); 
+                    }
+                    else
+                    {
+                        Console.Write(" x " + i);
+                    }
+                    start = false;
+                    n /= i;
+                    while (n % i == 0 && n > 0)
+                    {
+                        count++;
+                        n /= i;
+                    }
+                    Console.Write($"^{count}");
+                }
+            }                
         }
         /// <summary>
         /// CMMDC & CMMMC
