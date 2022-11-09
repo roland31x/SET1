@@ -655,6 +655,7 @@ namespace SET1
         /// </summary>
         private static void P18()
         {
+            // metoda 1, cred ca nu e buna pentru ca genereaza o lista prea lunga.
             /* int n;
             List<int> primeslist = new List<int>();
             int prime = 3;
@@ -737,6 +738,7 @@ namespace SET1
             Console.Write($"x {aux}^1");
             }
             Console.WriteLine(); */
+            // metoda 2
             int n;
             Console.WriteLine("ex 18: Afisati descompunerea in factori primi ai unui numar 'n'.\n");
             Console.Write("n = ");
