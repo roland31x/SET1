@@ -140,6 +140,11 @@ namespace SET1
                         P21();
                         Finish();
                         break;
+                    case "22":
+                        Start();
+                        P22();
+                        Finish();
+                        break;
                     default:
                         Console.WriteLine("Valoarea introdusa nu apartine criteriului cerut, apasa orice buton pentru a reveni la meniul de selectie!");
                         Console.ReadKey();
@@ -171,15 +176,16 @@ namespace SET1
             Console.WriteLine("18. Descompunerea in factori prim ai unui numar");
             Console.WriteLine("19. Test numar alcatuit din exact 2 cifre");
             Console.WriteLine("20. Fractia 'm/n' in format zecimal");
-            Console.WriteLine("21. Ghiceste un numar intre 1 si 1024");
+            Console.WriteLine("21. Ghiceste un numar intre 1 si 1024 cu intrebari de genul: Numarul este mai mare sau egal decat 'x'? ");
+            Console.WriteLine("*22.Calculatorul Ghiceste un numar intre 1 si 1024 (l-am facut pe degeaba)");
             Console.WriteLine();
 
-            Console.Write("Introduceti un numar de la 1 la 21 sau 'exit' pentru a iesi din aplicatie: ");
+            Console.Write("Introduceti un numar de la 1 la 22 sau 'exit' pentru a iesi din aplicatie: ");
         }
         /// <summary>
         /// Ghiceste numarul tau intre 1 si 1024 prin intrebari
         /// </summary>
-        private static void P21()
+        private static void P22()
         {
             Console.WriteLine("ex 21: Ghiciti un numar intre 1 si 1024 prin intrebari de forma 'numarul este mai mare sau egal decat x?'.\n ");
             string raspuns;
@@ -334,6 +340,39 @@ namespace SET1
             if (count == 9) 
             {
                 Console.WriteLine($"Numarul tau este 1");
+            }
+        }
+        private static void P21()
+        {
+            Random nr = new Random();
+            int ghicit = nr.Next(1, 1024);
+            Console.WriteLine("M-am gandit la un numar, incearca sa il ghicesti! Intreabama un numar si eu iti raspund daca esti aproape sau nu");
+            int nrc = 0;
+            while (nrc != ghicit)
+            {
+                nrc = int.Parse(Console.ReadLine());
+                if (nrc < ghicit)
+                {
+                    if (ghicit - nrc > 100)
+                    {
+                        Console.WriteLine("Numarul meu este mult mai mare");
+                        continue;
+                    }
+                    Console.WriteLine("Numarul meu este mai mare");
+                }
+                if (nrc > ghicit)
+                {
+                    if (nrc - ghicit > 100)
+                    {
+                        Console.WriteLine("Numarul meu este mult mai mic");
+                        continue;
+                    }
+                    Console.WriteLine("Numarul meu este mai mic");
+                }
+                if (nrc == ghicit)
+                {
+                    Console.WriteLine($"Mi-ai ghicit numarul! Este {ghicit}");
+                }
             }
         }
         /// <summary>
