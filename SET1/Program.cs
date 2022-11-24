@@ -354,11 +354,14 @@ namespace SET1
             int nrc = 0;
             while (nrc != ghicit)
             {
+                Console.WriteLine();
+                Console.Write("Numarul tau este mai mare sau egal decat: ");
                 var nrcAsString = Console.ReadLine();
                 while (!int.TryParse(nrcAsString, out nrc))
                 {
                     Console.WriteLine("Trebuie sa introduci un numar! Incearca din nou!");
                     Console.WriteLine();
+                    Console.Write("Numarul tau este mai mare sau egal decat: ");
                     nrcAsString = Console.ReadLine();
                 }
                 if (nrc < ghicit)
@@ -621,7 +624,7 @@ namespace SET1
                 return;
             }
             //int[] cifre = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            int[] nrcifre = new int[10];
+            /*int[] nrcifre = new int[10];
             for (int j = 0; j < aAsString.Length; j++)
             {
                 int count = 0;
@@ -648,95 +651,24 @@ namespace SET1
             {
                 Console.WriteLine("\nNu , numarul introdus nu este format din doar 2 cifre care se pot repeta.");
             }
-            else Console.WriteLine("Da , numarul introdus este format din doar 2 cifre care se pot repeta.");
+            else Console.WriteLine("Da , numarul introdus este format din doar 2 cifre care se pot repeta."); */
+            SortedSet<long> cifre = new SortedSet<long>();
+            while (aux > 0)
+            {
+                cifre.Add(aux % 10);
+                aux /= 10;
+            }
+            if (cifre.Count == 2)
+            {
+                Console.WriteLine("\nDa , numarul introdus este format din doar 2 cifre care se pot repeta.");
+            }
+            else Console.WriteLine("nu");
         }
         /// <summary>
         /// Descompunere in factori primi ( functioneaza pt orice numar pana la int32.maxvalue )
         /// </summary>
         private static void P18()
-        {
-            /* int n;
-            List<int> primeslist = new List<int>();
-            int prime = 3;
-            primeslist.Add(2);
-            primeslist.Add(3);
-            // primele 2 nr prime, de aici le genereaza calculatorul
-            Console.WriteLine("ex 18: Afisati descompunerea in factori primi ai unui numar 'n'.\n");
-            // Console.WriteLine(primes.Count());
-            Console.Write("n = ");
-            var aAsString = Console.ReadLine();
-            while (!int.TryParse(aAsString, out n))
-            {
-                Console.WriteLine("Trebuie sa introduci un numar intreg! Incearca din nou!");
-                Console.WriteLine();
-                Console.Write("n = ");
-                aAsString = Console.ReadLine();
-            }
-            if (n == 0)
-            {               
-                Console.WriteLine("Pentru n = 0, descompunerea in factori primi nu exista");
-                return;
-            }
-            while (prime < Math.Sqrt(Math.Abs(n))) // genereaza toate numerele prime necesare descompunerii numarului
-            {
-                bool isprime = true;
-                prime = prime + 2;
-                for (int i = 3; i < prime; i++) 
-                {
-                    if (prime % i == 0)
-                    {
-                        isprime = false;
-                        break;
-                    }                                          
-                }
-                if (isprime)
-                {
-                    primeslist.Add(prime);
-                }
-            }
-            //pt verificarea elementelor listei
-            //for (int i = 0; i < primeslist.Count; i++)
-            //{
-            //    Console.WriteLine(primeslist[i]);
-            //}
-            int[] primes = primeslist.ToArray(); // intr-un tablou sa nu avem probleme de indexare
-            int[] pwr = new int[primes.Length];
-            int semn = n / (int)Math.Abs(n);
-            int aux = (int)Math.Abs(n);
-            for (int i = 0; i < primes.Length; i++)
-            {
-                int count2 = 0;
-                while (aux % primes[i] == 0)
-                {
-                    aux /= primes[i];
-                    count2++;
-                    pwr[i] = count2;
-                }
-            }
-            ////for (int j = 0; j <= 999; j++)
-            ////{
-            ////    Console.WriteLine(pwr[j]);
-            ////}
-            Console.Write($"\nDescompunerea in factori primi ai numarului {n} este: \n ");
-            if (n < 0)
-            {
-                Console.Write($"{semn}^1 x");
-            }
-            int countk = 0;
-            for (int k = 0; k < primes.Length; k++)
-            {
-                if (pwr[k] != 0)
-                {                
-                    if (countk > 0) Console.Write($"x");
-                    Console.Write($" {primes[k]}^{pwr[k]} ");
-                    countk++;
-                }
-            }
-            if (aux > 1)
-            {   
-            Console.Write($"x {aux}^1");
-            }
-            Console.WriteLine(); */
+        {           
             int n;
             Console.WriteLine("ex 18: Afisati descompunerea in factori primi ai unui numar 'n'.\n");
             Console.Write("n = ");
